@@ -1,26 +1,23 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Генератор случайных идей</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Генератор случайных идей</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container">
-  <h1>Генератор идей</h1>
-
-  <div class="input-section">
+  <div class="container">
+    <h1>Генератор случайных идей</h1>
+    <div class="idea-box" id="ideaBox">Нажмите кнопку, чтобы получить идею</div>
     <button onclick="generateIdea()">Сгенерировать идею</button>
+    <h2>Мои идеи</h2>
+    <div class="input-section">
+      <input type="text" id="ideaInput" placeholder="Введите свою идею...">
+      <button onclick="addIdea()">Добавить</button>
+    </div>
+    <ul id="ideaList"></ul>
   </div>
-
-  <div id="currentIdea" class="current-idea">
-    Нажмите кнопку, чтобы получить идею
-  </div>
-
-  <h2>История идей</h2>
-  <ul id="ideaList"></ul>
-</div>
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
