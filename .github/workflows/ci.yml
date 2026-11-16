@@ -1,0 +1,32 @@
+
+name: CI - Random Idea Generator
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check required files
+        run: |
+          test -f index.html
+          test -f style.css
+          test -f script.js
+          echo "All required files exist."
+
+      - name: Validate HTML references
+        run: |
+          grep -q 'style.css' index.html
+          grep -q 'script.js' index.html
+          echo "HTML references are valid."
+
+      - name: Check JavaScript syntax
+        run: node --check script.js
