@@ -1,23 +1,103 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Генератор сюжетов, персонажей и названий локаций для творческих проектов.">
   <title>Генератор случайных идей</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Генератор случайных идей</h1>
-    <div class="idea-box" id="ideaBox">Нажмите кнопку, чтобы получить идею</div>
-    <button onclick="generateIdea()">Сгенерировать идею</button>
-    <h2>Мои идеи</h2>
-    <div class="input-section">
-      <input type="text" id="ideaInput" placeholder="Введите свою идею...">
-      <button onclick="addIdea()">Добавить</button>
-    </div>
-    <ul id="ideaList"></ul>
-  </div>
+  <main class="container">
+    <header class="header">
+      <div>
+        <p class="eyebrow">ТВОЯ МАСТЕРСКАЯ ВДОХНОВЕНИЯ</p>
+        <h1>Генератор случайных идей</h1>
+        <p class="subtitle">Найди отправную точку для следующей истории.</p>
+      </div>
+      <span class="logo" aria-hidden="true">✦</span>
+    </header>
+
+    <section class="panel controls" aria-labelledby="settingsTitle">
+      <h2 id="settingsTitle">Настройки генерации</h2>
+      <div class="control-grid">
+        <label>Что генерируем
+          <select id="contentType">
+            <option value="plot">Сюжет</option>
+            <option value="character">Имя персонажа</option>
+            <option value="location">Город или локация</option>
+          </select>
+        </label>
+        <label>Жанр
+          <select id="genre">
+            <option value="fantasy">Фэнтези</option>
+            <option value="drama">Драма</option>
+            <option value="horror">Хоррор</option>
+          </select>
+        </label>
+        <label>Раса персонажа
+          <select id="race">
+            <option value="human">Человек</option>
+            <option value="elf">Эльф</option>
+            <option value="dwarf">Дварф</option>
+            <option value="orc">Орк</option>
+            <option value="android">Андроид</option>
+          </select>
+        </label>
+        <label>Пол персонажа
+          <select id="gender">
+            <option value="any">Любой</option>
+            <option value="female">Женский</option>
+            <option value="male">Мужской</option>
+          </select>
+        </label>
+        <label class="seed-field">Зерно (seed)
+          <input id="seed" type="text" placeholder="Например, 12345">
+        </label>
+        <label class="range-field">Реализм — сюрреализм
+          <span class="range-row">
+            <span>Реализм</span>
+            <input id="absurdity" type="range" min="0" max="100" value="35">
+            <span>Сюрреализм</span>
+          </span>
+          <output id="absurdityValue">35%</output>
+        </label>
+      </div>
+      <button class="primary-button" id="generateButton">✦ Сгенерировать</button>
+    </section>
+
+    <section class="panel result-panel" aria-labelledby="resultTitle">
+      <div class="section-heading">
+        <h2 id="resultTitle">Результат</h2>
+        <span class="result-type" id="resultType">Ожидание идеи</span>
+      </div>
+      <div class="idea-box" id="ideaBox" aria-live="polite">Выбери параметры и нажми «Сгенерировать».</div>
+      <div class="result-actions">
+        <button class="secondary-button" id="saveButton" disabled>♡ В избранное</button>
+        <button class="secondary-button" id="copyButton" disabled>Копировать</button>
+      </div>
+    </section>
+
+    <section class="columns">
+      <section class="panel" aria-labelledby="favoritesTitle">
+        <div class="section-heading">
+          <h2 id="favoritesTitle">Избранное</h2>
+          <button class="text-button" id="exportTxtButton">Экспорт .txt</button>
+        </div>
+        <div id="favoritesList" class="idea-list"><p class="empty-state">Пока здесь пусто.</p></div>
+        <button class="secondary-button export-button" id="exportDocxButton">Экспорт .docx</button>
+      </section>
+      <section class="panel" aria-labelledby="historyTitle">
+        <div class="section-heading">
+          <h2 id="historyTitle">История генераций</h2>
+          <button class="text-button" id="clearHistoryButton">Очистить</button>
+        </div>
+        <div id="historyList" class="idea-list"><p class="empty-state">История появится после первой генерации.</p></div>
+      </section>
+    </section>
+    <footer>Данные сохраняются в этом браузере на вашем устройстве.</footer>
+  </main>
   <script src="script.js"></script>
 </body>
 </html>
