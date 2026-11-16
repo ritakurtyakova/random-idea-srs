@@ -1,4 +1,3 @@
-
 -- Начальные тестовые данные для SQLite
 
 PRAGMA foreign_keys = ON;
