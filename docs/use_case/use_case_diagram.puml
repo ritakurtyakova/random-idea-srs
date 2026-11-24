@@ -1,42 +1,60 @@
 
 @startuml
+
 left to right direction
 
-actor "Пользователь" as User
+actor Пользователь as User
 
 rectangle "Генератор случайных идей" {
 
-    usecase "Генерация\nслучайной идеи" as Generate
-    usecase "Настройка параметров\nгенерации" as Settings
-    usecase "Выбор типа идеи" as Type
-    usecase "Выбор жанра" as Genre
+  usecase "Генерация случайной идеи" as Generate
 
-    usecase "Сохранение идеи\nв избранное" as Save
-    usecase "Просмотр истории" as History
-    usecase "Копирование идеи" as Copy
+  usecase "Настройка параметров генерации" as Settings
 
-    usecase "Удаление идеи\nиз избранного" as Delete
-    usecase "Очистка истории" as Clear
+  usecase "Сохранение идеи в избранное" as Save
 
-    usecase "Экспорт избранного" as Export
-    usecase "Экспорт в TXT" as TXT
-    usecase "Экспорт в DOCX" as DOCX
+  usecase "Просмотр истории генераций" as ViewHistory
+
+  usecase "Копирование идеи" as Copy
+
+  usecase "Удаление идеи из избранного" as Delete
+
+  usecase "Очистка истории" as ClearHistory
+
+  usecase "Экспорт избранного" as Export
+
+  usecase "Экспорт в TXT" as TXT
+
+  usecase "Экспорт в DOCX" as DOCX
+
+  ' Include relationships
+
+  Generate .> Settings : <<include>>
+
+  ' Extend relationships
+
+  Export <.. TXT : <<extend>>
+
+  Export <.. DOCX : <<extend>>
+
 }
 
+' Actor associations
+
 User -- Generate
+
 User -- Settings
+
 User -- Save
-User -- History
+
+User -- ViewHistory
+
 User -- Copy
+
 User -- Delete
-User -- Clear
+
+User -- ClearHistory
+
 User -- Export
-
-Generate .> Settings : <<include>>
-Settings .> Type : <<include>>
-Settings .> Genre : <<include>>
-
-TXT .> Export : <<extend>>
-DOCX .> Export : <<extend>>
 
 @enduml
