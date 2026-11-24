@@ -1,0 +1,31 @@
+
+@startuml Generate_Idea_Sequence
+
+actor "Пользователь" as User
+participant "Интерфейс" as UI
+participant "Логика приложения" as Script
+
+User -> UI: Нажимает кнопку «Сгенерировать идею»
+activate User
+activate UI
+
+UI -> Script: generateIdea()
+activate Script
+
+Script -> Script: Получить список доступных идей
+Script -> Script: Выбрать случайную идею
+
+alt Идея найдена
+    Script --> UI: randomIdea
+    UI -> UI: Обновить отображение идеи
+    UI --> User: Показать сгенерированную идею
+else Идей нет
+    Script --> UI: Ошибка генерации
+    UI --> User: Показать сообщение об ошибке
+end
+
+deactivate Script
+deactivate UI
+deactivate User
+
+@enduml
