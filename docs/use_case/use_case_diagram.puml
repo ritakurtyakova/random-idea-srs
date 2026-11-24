@@ -1,0 +1,42 @@
+
+@startuml
+left to right direction
+
+actor "Пользователь" as User
+
+rectangle "Генератор случайных идей" {
+
+    usecase "Генерация\nслучайной идеи" as Generate
+    usecase "Настройка параметров\nгенерации" as Settings
+    usecase "Выбор типа идеи" as Type
+    usecase "Выбор жанра" as Genre
+
+    usecase "Сохранение идеи\nв избранное" as Save
+    usecase "Просмотр истории" as History
+    usecase "Копирование идеи" as Copy
+
+    usecase "Удаление идеи\nиз избранного" as Delete
+    usecase "Очистка истории" as Clear
+
+    usecase "Экспорт избранного" as Export
+    usecase "Экспорт в TXT" as TXT
+    usecase "Экспорт в DOCX" as DOCX
+}
+
+User -- Generate
+User -- Settings
+User -- Save
+User -- History
+User -- Copy
+User -- Delete
+User -- Clear
+User -- Export
+
+Generate .> Settings : <<include>>
+Settings .> Type : <<include>>
+Settings .> Genre : <<include>>
+
+TXT .> Export : <<extend>>
+DOCX .> Export : <<extend>>
+
+@enduml
