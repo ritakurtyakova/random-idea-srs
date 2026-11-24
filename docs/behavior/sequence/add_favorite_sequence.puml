@@ -1,0 +1,39 @@
+
+@startuml Add_Favorite_Sequence
+
+actor "Пользователь" as User
+participant "Интерфейс" as UI
+participant "Логика приложения" as Script
+database "localStorage" as Storage
+
+User -> UI: Нажимает кнопку «В избранное»
+activate User
+activate UI
+
+UI -> Script: addToFavorites(idea)
+activate Script
+
+Script -> Storage: Получить список избранного
+activate Storage
+Storage --> Script: favorites
+deactivate Storage
+
+alt Идеи ещё нет в избранном
+    Script -> Script: Добавить идею в список
+    Script -> Storage: Сохранить обновлённый список
+    activate Storage
+    Storage --> Script: Подтверждение сохранения
+    deactivate Storage
+    Script --> UI: Успешное сохранение
+    UI -> UI: Обновить состояние кнопки
+    UI --> User: Показать сообщение «Добавлено в избранное»
+else Идея уже сохранена
+    Script --> UI: Идея уже в избранном
+    UI --> User: Показать соответствующее сообщение
+end
+
+deactivate Script
+deactivate UI
+deactivate User
+
+@enduml
