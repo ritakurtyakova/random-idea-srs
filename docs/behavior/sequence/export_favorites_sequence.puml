@@ -1,0 +1,40 @@
+
+@startuml Export_Favorites_Sequence
+
+actor "Пользователь" as User
+participant "Интерфейс" as UI
+participant "Логика приложения" as Script
+database "localStorage" as Storage
+participant "Формирование файла" as File
+
+User -> UI: Нажимает кнопку «Экспорт в TXT»
+activate User
+activate UI
+
+UI -> Script: exportFavorites()
+activate Script
+
+Script -> Storage: Получить список избранного
+activate Storage
+Storage --> Script: favorites
+deactivate Storage
+
+alt Список избранного не пуст
+    Script -> File: Создать TXT-файл
+    activate File
+    File -> File: Сформировать текстовый файл
+    File --> Script: Готовый TXT-файл
+    deactivate File
+
+    Script --> UI: Передать файл для скачивания
+    UI --> User: Скачать TXT-файл
+else Список избранного пуст
+    Script --> UI: Список пуст
+    UI --> User: Показать сообщение «Нет идей для экспорта»
+end
+
+deactivate Script
+deactivate UI
+deactivate User
+
+@enduml
